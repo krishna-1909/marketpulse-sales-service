@@ -5,6 +5,7 @@ import com.marketpulse.salesservice.service.SalesRecordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/sales")
@@ -17,7 +18,7 @@ public class SalesRecordController {
     }
 
     @PostMapping
-    public ResponseEntity<SalesRecord> createSalesRecord(@RequestBody SalesRecord salesRecord) {
+    public ResponseEntity<SalesRecord> createSalesRecord(@Valid @RequestBody SalesRecord salesRecord) {
 
         SalesRecord savedRecord = salesRecordService.createSalesRecord(salesRecord);
 
@@ -39,4 +40,20 @@ public class SalesRecordController {
 
         return ResponseEntity.ok(salesRecord);
     }
+
+    @PutMapping("/{id}")
+    public SalesRecord updateSalesRecord(@Valid @PathVariable Long id,
+                                         @RequestBody SalesRecord salesRecord) {
+
+        return salesRecordService.updateSalesRecord(id, salesRecord);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSalesRecord(@PathVariable Long id) {
+
+        salesRecordService.deleteSalesRecord(id);
+
+        return ResponseEntity.ok("Sales Record Deleted Successfully");
+    }
+
 }

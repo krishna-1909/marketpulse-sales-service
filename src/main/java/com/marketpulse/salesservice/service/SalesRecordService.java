@@ -120,4 +120,43 @@ public class SalesRecordService {
     }
 
 
+    // search?region=Texas&status=COMPLETED
+    public List<SalesResponseDto> searchSales(
+            String region,
+            String status) {
+
+        List<SalesRecord> salesRecords;
+
+        if (region != null && status != null) {
+
+            salesRecords =
+                    salesRecordRepository
+                            .findByRegionAndStatus(
+                                    region,
+                                    status);
+
+        } else if (region != null) {
+
+            salesRecords =
+                    salesRecordRepository
+                            .findByRegion(region);
+
+        } else if (status != null) {
+
+            salesRecords =
+                    salesRecordRepository
+                            .findByStatus(status);
+
+        } else {
+
+            salesRecords =
+                    salesRecordRepository.findAll();
+        }
+
+        return salesRecords.stream()
+                .map(SalesRecordMapper::toDto)
+                .toList();
+    }
+
+
 }

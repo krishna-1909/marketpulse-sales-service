@@ -103,4 +103,21 @@ public class SalesRecordController {
         return ResponseEntity.ok(
                 salesRecordService.getSalesByStatus(status));
     }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<SalesResponseDto>>
+    searchSales(
+
+            @RequestParam(required = false)
+            String region,
+
+            @RequestParam(required = false)
+            String status) {
+
+        return ResponseEntity.ok(
+                salesRecordService.searchSales(
+                        region,
+                        status));
+    }
 }

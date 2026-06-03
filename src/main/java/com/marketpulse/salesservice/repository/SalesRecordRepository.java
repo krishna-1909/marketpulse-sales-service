@@ -11,4 +11,6 @@ public interface SalesRecordRepository extends JpaRepository<SalesRecord, Long> 
     List<SalesRecord> findByRegion(String region);
 
     List<SalesRecord> findByStatus(String status);
+
+    List<SalesRecord> findByRegionAndStatus(String region, String status);
 }
